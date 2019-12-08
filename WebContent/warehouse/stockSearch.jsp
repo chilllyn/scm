@@ -24,7 +24,7 @@
 	<div id="m">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" id="m">
 			<tr>
-				<td nowrap class="title1">您的位置：库存查询</td>
+				<td nowrap class="title1">仓储管理--库存查询</td>
 			</tr>
 		</table>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -65,7 +65,7 @@
 			</tr>
 			<c:forEach items="${products }" var="p">
 			<tr class="ptr">
-				<td align="center"><a href="warehouse/stockDetail?productCode=${p.productCode }">${p.productCode }</a></td>
+				<td align="center"><a href="warehouse/stockChange?productCode=${p.productCode }&name=${p.name }">${p.productCode }</a></td>
 				<td align="center">${p.name }</td>
 				<td align="center">${p.num }</td>
 				<td align="center">${p.poNum }</td>
