@@ -1,0 +1,74 @@
+﻿body {
+    font-size:12px;
+	margin-top:2px; 
+	margin-left:2px; 
+	
+	background-image:url(../images/background.gif)
+}
+.hidd{display:none;}
+td {
+    font-size:12px; 
+	background-color:#fff7e5
+}
+
+table {background-color:#dbeaf5; }
+.c{border-bottom:#dbeaf5 solid 20px;}
+
+input {
+    border:1px solid #B3D7F1;
+}
+
+input.btn {border:1px solid #B3D7F1; background-color:#FFFFFF; cursor:hand}
+
+.P {
+    cursor:hand; background-image:url(../images/toolbar.gif);
+}
+
+.T {
+    background-color:#e9f2f8;
+	border:1px solid #336699; 
+	cursor:hand
+}
+
+.LL {cursor:hand}
+
+.toolbar {
+    background-image:url(../images/toolbar.gif);
+	height:20px; 
+	text-align:center; 
+	vertical-align:middle
+}
+
+.title1 {
+    color:#003399; 
+	background-color:#dbeaf5;
+	height:20px; 
+	text-align:center
+}
+
+.title2 {
+    color:#003399;
+	background-color:#dbeaf5;
+	height:12px; 
+	text-align:center;
+}
+
+a{
+	color:#000099; 
+	text-decoration:none
+}
+a:hover	{
+		text-decoration:underline;
+}
+
+.requred_symbol { color:#FF0000; }
+
+.query_div{
+	width:100%;
+	padding:25px;
+}
+.pageDiv{
+	width:100%;
+	margin:10px auto;
+	text-align:center;
+}
