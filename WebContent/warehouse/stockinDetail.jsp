@@ -22,7 +22,7 @@
 <div id="m">
 	<table width="100%"  border="0" cellpadding="0" cellspacing="0" id="m">
 	  <tr>
-		<td nowrap class="title1">采购单详情</td>
+		<td nowrap class="title1">入库登记--采购单详情</td>
 	  </tr>
 	</table>
 	<table width="100%"  border="0" cellpadding="0" cellspacing="0">

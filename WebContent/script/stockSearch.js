@@ -46,7 +46,7 @@ $(function(){
 						var products=results[0];
 						for(var i=0;i<products.length;i++){
 							$td1=$('<td align="center"></td>');
-							$td1.append('<a href="warehouse/stockDetail?productCode='+products[i].productCode+'">'+products[i].productCode+'</a>');
+							$td1.append('<a href="warehouse/stockChange?productCode='+products[i].productCode+'name='+products[i].name+'">'+products[i].productCode+'</a>');
 							$td2=$('<td align="center"></td>');
 							$td2.append(products[i].name);
 							$td3=$('<td align="center"></td>');
@@ -100,7 +100,7 @@ $(function(){
 				var products=results[0];
 				for(var i=0;i<products.length;i++){
 					$td1=$('<td align="center"></td>');
-					$td1.append('<a href="warehouse/stockDetail?productCode='+products[i].productCode+'">'+products[i].productCode+'</a>');
+					$td1.append('<a href="warehouse/stockChange?productCode='+products[i].productCode+'">'+products[i].productCode+'</a>');
 					$td2=$('<td align="center"></td>');
 					$td2.append(products[i].name);
 					$td3=$('<td align="center"></td>');

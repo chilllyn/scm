@@ -12,10 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <base href="<%=basePath%>">
-<title>Category</title>
+<title>月度入库报表</title>
 <link href="css/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="script/category.js"></script>
+<script type="text/javascript" src="script/stockinMonth.js"></script>
 <script language="javascript" src="script/common.js"></script>
 <!--  <script type="text/javascript" src="script/productDiv.js"></script>-->
 <script type="text/javascript" src="script/My97DatePicker/WdatePicker.js"></script>
@@ -24,18 +24,17 @@
 	<div id="m">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" id="m">
 			<tr>
-				<td nowrap class="title1">仓储管理--产品分类管理</td>
+				<td nowrap class="title1">业务报表--月度入库报表</td>
 			</tr>
 		</table>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="30px" nowrap class="toolbar">&nbsp;</td>
 				<td width="40px" nowrap class="toolbar" onMouseOver="OMO(event)"
-					onMouseOut="OMOU(event)" onClick="add()"><img
-					src="images/new.gif">新增</td>
+					onMouseOut="OMOU(event)" onclick="add()"></td>
+				<td width="90px" nowrap class="toolbar" onMouseOver="OMO(event)"
+					onMouseOut="OMOU(event)" onclick="deletech()">&nbsp;</td>
 				<td nowrap class="toolbar">&nbsp;</td>
-				<td width="60px" nowrap class="toolbar" onMouseOver="OMO(event)"
-					onMouseOut="OMOU(event)">&nbsp;</td>
 				<td width="20px" nowrap class="toolbar">&nbsp;</td>
 				<td width="60px" nowrap class="toolbar" onMouseOver="OMO(event)"
 					onMouseOut="OMOU(event)">&nbsp;</td>
@@ -48,67 +47,31 @@
 				<td width="20px" nowrap class="toolbar">&nbsp;</td>
 			</tr>
 		</table>
-		<form action="warehouse/category" id="category">
+		<form action="" id="">
 		<div class="query_div">
-			产品分类序列号：<input type="text" name="categoryId" /> 
-			产品分类名称：<input type="text" name="name" /> 
+			日期-年月：<input type="month" id="month" /> 
 			<input type="button" value="查询" />
 		</div>
+		<p>入库单据数：<span id="orderNum">0</span></p>
+		<p>入库产品总数量：<span id="numTotal">0</span></p>
+		<p>入库产品总金额：<span id="priceTotal">0</span></p>
 		<table width="100%" border="0" align="center" cellspacing="1"
-			class="c" id="categories">
+			class="c" id="srs">
 			<tr>
-				<td class="title1">序列号</td>
-				<td class="title1">名称</td>
-				<td class="title1">描述</td>
-				<td class="title1">操作</td>
+				<td class="title1">采购单号</td>
+				<td class="title1">入库日期</td>
+				<td class="title1">产品编号</td>
+				<td class="title1">产品名称</td>
+				<td class="title1">入库数</td>
+				<td class="title1">入库总金额</td>
 			</tr>
-			<c:forEach items="${categories }" var="category">
-			<tr class="ctr">
-				<td align="center">${category.categoryId }</td>
-				<td align="center">${category.name }</td>
-				<td align="center">${category.remark }</td>
-				<td align="center">
-					<input type="button" value="修改" >
-					<input type="button" value="删除" >
-				</td>
-			</tr>
-			</c:forEach>
 		</table>
-		<p align="center">共<span id="totalPage">${totalPage }</span>页，当前第<span id="nowPage">${nowPage }</span>页 
-			<select>
-			<c:forEach begin="1" end="${totalPage }" var="i"> 
-				<option value=${i }>${i }</option>
-			</c:forEach>
+		<p align="center">共<span id="totalPage">1</span>页，当前第<span id="nowPage">1</span>页 
+			<select id="page">
+				<option value=1 class="page">1</option>
 			</select>
 			<input type="button" value="跳转">
 		</p>
-		</form>
-	</div>
-	<div id="add" class="hidd">
-		<form action="">
-		<table width="100%" border="0" align="center" cellspacing="1"
-			class="c">
-			<tr>
-				<td class="title1"></td>
-				<td class="title1"></td>
-			</tr>
-			<tr>
-				<td align="center">产品分类名称</td>
-				<td align="left">
-					<input type="text" id="addName" onkeyup="checkName()"/><br/>
-					<span id="addNameTip"></span>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">备注</td>
-				<td align="left"><input type="text" id="addRemark"/></td>
-			</tr>
-			<tr>
-				<td height="18" colspan="2" align="center">
-					<input type="reset"/> <input type="button" value="保存"/>
-				</td>
-			</tr>
-		</table>
 		</form>
 	</div>
 </body>

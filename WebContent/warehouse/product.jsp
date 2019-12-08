@@ -24,7 +24,7 @@
 	<div id="m">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" id="m">
 			<tr>
-				<td nowrap class="title1">您的位置：产品管理</td>
+				<td nowrap class="title1">仓储管理--产品管理</td>
 			</tr>
 		</table>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
