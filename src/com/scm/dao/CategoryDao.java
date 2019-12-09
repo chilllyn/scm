@@ -23,8 +23,8 @@ public class CategoryDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean delete(int categoryId) throws SQLException{
-		Connection conn=null;
+	public ArrayList<Category> getCategories() throws SQLException{
+		ArrayList<Category> categories=new ArrayList<Category>();
 		PreparedStatement pstat=null;
 		ResultSet rs=null;
 		
