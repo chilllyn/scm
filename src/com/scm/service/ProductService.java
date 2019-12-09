@@ -9,6 +9,7 @@ import com.scm.dao.ProductDao;
 import com.scm.model.Category;
 import com.scm.model.Product;
 import com.scm.util.DBUtils;
+import com.scm.util.DataSourceUtil;
 
 public class ProductService {
 	//每页显示条数
@@ -22,7 +23,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> delete(String productCode,Product p,String nowPage) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();
@@ -58,7 +59,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> update(HashMap<String, String> p,Product p1,String nowPage) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();
@@ -96,7 +97,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> add(HashMap<String, String> p) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();
@@ -143,7 +144,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> to(Product p,int toPage) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();
@@ -162,7 +163,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> search(Product p) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();
@@ -184,7 +185,7 @@ public class ProductService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> first() throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<Product> products=new ArrayList<Product>();

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
-import com.scm.service.StockinMonthService;
+import com.scm.service.StockioMonthService;
 
 /**
  * Servlet implementation class StockinMonthTo
@@ -39,7 +39,7 @@ public class StockinMonthTo extends HttpServlet {
 		String month=request.getParameter("month");
 		String toPage=request.getParameter("toPage");
 		try {
-			ArrayList<Object> result=new StockinMonthService().search(month,Integer.parseInt(toPage));
+			ArrayList<Object> result=new StockioMonthService().search(month,Integer.parseInt(toPage),1,3);
 			String results=JSONArray.toJSONString(result);
 			PrintWriter pw=response.getWriter();
 			pw.print(results);

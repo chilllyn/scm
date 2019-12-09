@@ -8,6 +8,7 @@ import com.scm.dao.StockoutDao;
 import com.scm.model.SO;
 import com.scm.model.Soitem;
 import com.scm.util.DBUtils;
+import com.scm.util.DataSourceUtil;
 
 public class StockoutService {
 	private int num=2;
@@ -21,7 +22,7 @@ public class StockoutService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> out(long soid,String userAccount,int nowPage,int payType0) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		int status=0;
 		int totalPage=1;
 		ArrayList<SO> sos=new ArrayList<SO>();
@@ -58,7 +59,7 @@ public class StockoutService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> detail(long soid) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			SO so=new SO();
@@ -80,7 +81,7 @@ public class StockoutService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> tab(int payType0) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<SO> sos=new ArrayList<SO>();
@@ -103,7 +104,7 @@ public class StockoutService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> to(int payType0,int toPage) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<SO> pos=new ArrayList<SO>();
@@ -121,7 +122,7 @@ public class StockoutService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> first() throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<SO> sos=new ArrayList<SO>();

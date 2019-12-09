@@ -14,21 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
-import com.scm.model.Product;
 import com.scm.service.StockioMonthService;
 
 /**
- * Servlet implementation class StockinMonthSearch
+ * Servlet implementation class StockoutMonthSearch
  */
-@WebServlet({ "/StockinMonthSearch", "/warehouse/stockinMonthSearch" })
-public class StockinMonthSearch extends HttpServlet {
+@WebServlet({ "/StockoutMonthSearch", "/warehouse/stockoutMonthSearch" })
+public class StockoutMonthSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = Logger.getLogger(StockinMonthSearch.class);
+	private static final Logger LOGGER = Logger.getLogger(StockoutMonthSearch.class);
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StockinMonthSearch() {
+    public StockoutMonthSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,7 +38,7 @@ public class StockinMonthSearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String month=request.getParameter("month");
 		try {
-			ArrayList<Object> result=new StockioMonthService().search(month,1,1,3);
+			ArrayList<Object> result=new StockioMonthService().search(month,1,2,4);
 			String results=JSONArray.toJSONString(result);
 			PrintWriter pw=response.getWriter();
 			pw.print(results);

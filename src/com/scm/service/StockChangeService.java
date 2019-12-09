@@ -9,6 +9,7 @@ import com.scm.dao.StockinDao;
 import com.scm.model.PO;
 import com.scm.model.StockRecord;
 import com.scm.util.DBUtils;
+import com.scm.util.DataSourceUtil;
 
 public class StockChangeService {
 	private int num=2;
@@ -20,7 +21,7 @@ public class StockChangeService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> tab(int stockStatus,String productCode) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
@@ -44,7 +45,7 @@ public class StockChangeService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> to(int stockStatus,int toPage,String productCode) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
@@ -62,7 +63,7 @@ public class StockChangeService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> first(String productCode) throws SQLException{
-		Connection conn=DBUtils.getConnection();
+		Connection conn=DataSourceUtil.getConnection();
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
