@@ -10,9 +10,9 @@ var OutlookBar={
 	{"text":"业务报表", "panelCSS":"panel" ,"textCSS":"textpanel",
 		"items":
 			[
+				{"text":"产品库存报表","textCSS":"a1", "image":'images/pic/13.gif',    "url":'warehouse/stockMonth.jsp', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
 				{"text":"月度出库报表","textCSS":"a1", "image":'images/pic/13.gif',    "url":'warehouse/stockoutMonth.jsp', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
 				{"text":"月度入库报表","textCSS":"a1", "image":'images/pic/13.gif',    "url":'warehouse/stockinMonth.jsp', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
-				{"text":"产品库存报表","textCSS":"a1", "image":'images/pic/13.gif',    "url":'warehouse/stockMonth.jsp', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
 				{"text":"月度采购报表","textCSS":"a1", "image":'images/pic/11.gif',    "url":'purchase/spxx.htm', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
 				{"text":"月度收支登记表","textCSS":"a1", "image":'images/pic/12.gif',    "url":'finance/splb.htm', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"},
 				{"text":"月度销售报表","textCSS":"a1", "image":'images/pic/13.gif',    "url":'sale/dlqy.htm', "classCSS":"imgstyle", "overclassCSS":"imgstyle_over"}

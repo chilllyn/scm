@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
-import com.scm.model.Category;
 import com.scm.service.CategoryService;
 
 /**
@@ -24,7 +23,6 @@ import com.scm.service.CategoryService;
 public class CategoryAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(CategoryAdd.class);
-       
     /**
      * @see HttpServlet#HttpServlet()
      */

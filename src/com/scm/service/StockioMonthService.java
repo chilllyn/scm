@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.scm.dao.StockSearchDao;
-import com.scm.dao.StockioMonthDao;
-import com.scm.model.Product;
+import com.scm.dao.StockRecordDao;
 import com.scm.model.StockRecord;
-import com.scm.util.DBUtils;
 import com.scm.util.DataSourceUtil;
 
 public class StockioMonthService {
@@ -28,12 +25,12 @@ public class StockioMonthService {
 			double priceTotal=0;
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
 			int totalPage=1;
-			StockioMonthDao smd=new StockioMonthDao(conn);
-			orderNum=smd.orderNum(month, stockType1, stockType2);
-			numTotal=smd.numTotal(month, stockType1, stockType2);
-			priceTotal=smd.priceTotal(month, stockType1, stockType2);
-			srs=smd.getSrs(month, toPage, num, stockType1, stockType2);
-			totalPage=smd.totalPage(month, num, stockType1, stockType2);
+			StockRecordDao srd=new StockRecordDao(conn);
+			orderNum=srd.orderNum(month, stockType1, stockType2);
+			numTotal=srd.numTotal(month, stockType1, stockType2);
+			priceTotal=srd.priceTotal(month, stockType1, stockType2);
+			srs=srd.getSrs(month, toPage, num, stockType1, stockType2);
+			totalPage=srd.totalPage(month, num, stockType1, stockType2);
 			result.add(orderNum);
 			result.add(numTotal);
 			result.add(priceTotal);
@@ -41,7 +38,7 @@ public class StockioMonthService {
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 }

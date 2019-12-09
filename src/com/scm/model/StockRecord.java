@@ -3,6 +3,10 @@ package com.scm.model;
 import java.io.Serializable;
 
 public class StockRecord implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int stockId;
 	private String productCode;
 	private String orderCode;

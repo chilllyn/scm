@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.scm.dao.StockinDao;
+import com.scm.dao.PoitemDao;
+import com.scm.dao.PomainDao;
+import com.scm.dao.ProductDao;
+import com.scm.dao.StockRecordDao;
 import com.scm.model.PO;
 import com.scm.model.Poitem;
-import com.scm.util.DBUtils;
 import com.scm.util.DataSourceUtil;
 
 public class StockinService {
@@ -29,14 +31,16 @@ public class StockinService {
 		ArrayList<Object> result=new ArrayList<Object>();
 		try {
 			conn.setAutoCommit(false);
-			StockinDao sd=new StockinDao(conn);
-			if(sd.update(poid, userAccount)&&sd.insertStockRecord(poid, userAccount)&&sd.updateProduct(poid)) {
+			PomainDao pmd=new PomainDao(conn);
+			StockRecordDao srd=new StockRecordDao(conn);
+			ProductDao pd=new ProductDao(conn);
+			if(pmd.update(poid, userAccount)&&srd.insertStockRecordPo(poid, userAccount)&&pd.updateProductPo(poid)) {
 				conn.commit();
-				totalPage=sd.getTotalPage(num, payType0);
+				totalPage=pmd.getTotalPage(num, payType0);
 				if(totalPage>=nowPage) {
-					pos=sd.getPos(nowPage, num, payType0);
+					pos=pmd.getPos(nowPage, num, payType0);
 				}else {
-					pos=sd.getPos(totalPage, num, payType0);
+					pos=pmd.getPos(totalPage, num, payType0);
 				}
 				status=1;
 				conn.commit();
@@ -49,7 +53,7 @@ public class StockinService {
 			result.add(status);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -64,14 +68,15 @@ public class StockinService {
 			ArrayList<Object> result=new ArrayList<Object>();
 			PO po=new PO();
 			ArrayList<Poitem> poitems=new ArrayList<Poitem>();
-			StockinDao sd=new StockinDao(conn);
-			po=sd.getPo(poid);
-			poitems=sd.getPoitems(poid);
+			PomainDao pmd=new PomainDao(conn);
+			PoitemDao pid=new PoitemDao(conn);
+			po=pmd.getPo(poid);
+			poitems=pid.getPoitems(poid);
 			result.add(po);
 			result.add(poitems);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -86,14 +91,14 @@ public class StockinService {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<PO> pos=new ArrayList<PO>();
 			int totalPage=1;
-			StockinDao sd=new StockinDao(conn);
-			pos=sd.getPos(1, num, payType0);
-			totalPage=sd.getTotalPage(num, payType0);
+			PomainDao pmd=new PomainDao(conn);
+			pos=pmd.getPos(1, num, payType0);
+			totalPage=pmd.getTotalPage(num, payType0);
 			result.add(pos);
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 
@@ -109,12 +114,12 @@ public class StockinService {
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<PO> pos=new ArrayList<PO>();
-			StockinDao sd=new StockinDao(conn);
-			pos=sd.getPos(toPage, num, payType0);
+			PomainDao pmd=new PomainDao(conn);
+			pos=pmd.getPos(toPage, num, payType0);
 			result.add(pos);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -128,16 +133,16 @@ public class StockinService {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<PO> pos=new ArrayList<PO>();
 			int totalPage=1;
-			StockinDao pd=new StockinDao(conn);
+			PomainDao pmd=new PomainDao(conn);
 			//查询第一页
-			pos=pd.getPos(1, num, 0);
+			pos=pmd.getPos(1, num, 0);
 			//查询总页数
-			totalPage=pd.getTotalPage(num, 0);
+			totalPage=pmd.getTotalPage(num, 0);
 			result.add(pos);
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 }

@@ -52,8 +52,6 @@ $(function(){
 			flag=false;
 		}
 		if(flag){
-			$(".ctr").remove();
-			$("option").remove();
 			$.ajax({
 				url:"warehouse/categorySearch",
 				data:{
@@ -64,6 +62,8 @@ $(function(){
 				dataType:"json",
 				async:true,
 				success:function(results){
+					$(".ctr").remove();
+					$("option").remove();
 					var categories=results[0];
 					for(var i=0;i<categories.length;i++){
 						$td1=$("<td align='center'></td>");
@@ -106,7 +106,6 @@ $(function(){
 			flag=false;
 		}
 		if(flag){
-			$(".ctr").remove();
 			$.ajax({
 				url:"warehouse/categoryTo",
 				data:{
@@ -118,6 +117,8 @@ $(function(){
 				dataType:"json",
 				async:true,
 				success:function(results){
+					$(".ctr").remove();
+					$("option").remove();
 					var categories=results[0];
 					for(var i=0;i<categories.length;i++){
 						$td1=$("<td align='center'></td>");
@@ -137,8 +138,17 @@ $(function(){
 						$("#categories").append($tr);
 					}
 					var totalPage=results[1];
+					for(var i=1;i<=parseInt(totalPage);i++){
+						$option=$("<option></option>");
+						$option.append(i);
+						$("select").append($option);
+					}
 					$("#totalPage").text(totalPage);
-					$("#nowPage").text($toPage);
+					if($toPage>totalPage){
+						$("#nowPage").text(totalPage);
+					}else{
+						$("#nowPage").text($toPage);
+					}
 				}
 			})
 		}

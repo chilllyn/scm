@@ -3,6 +3,10 @@ package com.scm.model;
 import java.io.Serializable;
 
 public class Soitem implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productCode;
 	private String name;
 	private String unitName;

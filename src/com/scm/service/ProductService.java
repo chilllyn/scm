@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.scm.dao.CategoryDao;
 import com.scm.dao.ProductDao;
 import com.scm.model.Category;
 import com.scm.model.Product;
-import com.scm.util.DBUtils;
 import com.scm.util.DataSourceUtil;
 
 public class ProductService {
@@ -47,7 +47,7 @@ public class ProductService {
 			result.add(status);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -87,7 +87,7 @@ public class ProductService {
 			result.add(status);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -111,7 +111,7 @@ public class ProductService {
 						if(p.get("unitName").matches("^[\\w\\u4E00-\\u9FA5]{1,5}$")) {
 							if(pd.add(p)) {
 								totalPage=pd.getTotalPage(num, new Product("", "", ""));
-								products=pd.getProducts(totalPage, num, new Product("", "", ""));
+								products=pd.getProducts(1, num, new Product("", "", ""));
 								status=5;
 							}else {
 								status=4;
@@ -133,7 +133,7 @@ public class ProductService {
 			result.add(status);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -150,10 +150,12 @@ public class ProductService {
 			ArrayList<Product> products=new ArrayList<Product>();
 			ProductDao pd=new ProductDao(conn);
 			products=pd.getProducts(toPage, num, p);
+			int totalPage=pd.getTotalPage(num, p);
 			result.add(products);
+			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -175,7 +177,7 @@ public class ProductService {
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 		
 	}
@@ -192,18 +194,19 @@ public class ProductService {
 			int totalPage=1;
 			ArrayList<Category> categories=new ArrayList<Category>();
 			ProductDao pd=new ProductDao(conn);
+			CategoryDao cd=new CategoryDao(conn);
 			//查询第一页
 			products=pd.getProducts(1, num, new Product("", "", ""));
 			//查询总页数
 			totalPage=pd.getTotalPage(num, new Product("", "", ""));
 			//查询所有产品类别
-			categories=pd.getCategories();
+			categories=cd.getCategories();
 			result.add(products);
 			result.add(totalPage);
 			result.add(categories);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 }

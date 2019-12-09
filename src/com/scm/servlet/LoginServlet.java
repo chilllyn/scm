@@ -8,16 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 import org.apache.log4j.Logger;
 
-import com.scm.dao.UserDao;
 import com.scm.model.User;
 import com.scm.service.LoginService;
-
-import sun.security.provider.certpath.ResponderId;
-
 /**
  * Servlet implementation class LoginServlet
  */

@@ -8,8 +8,37 @@ import java.util.ArrayList;
 
 import com.scm.model.Category;
 import com.scm.util.DBUtils;
+import com.scm.util.DataSourceUtil;
 
 public class CategoryDao {
+	private Connection conn;
+
+	public CategoryDao(Connection conn) {
+		this.conn = conn;
+	}
+
+	public CategoryDao() {}
+	/**
+	 * 获取所有产品类别编号 名称
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Category> getCategories() throws SQLException{
+		ArrayList<Category> categories=new ArrayList<Category>();
+		PreparedStatement pstat=null;
+		ResultSet rs=null;
+		
+		try {
+			pstat=conn.prepareStatement("select categoryId,name from category ");
+			rs=pstat.executeQuery();
+			while(rs.next()) {
+				categories.add(new Category(rs.getInt(1), rs.getString(2)));
+			}
+			return categories;
+		} finally {
+			DataSourceUtil.close(rs, pstat, null);
+		}
+	}
 	/**
 	 * 删除
 	 * @param categoryId
@@ -17,7 +46,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public boolean delete(int categoryId) throws SQLException{
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		int count=0;
 		
@@ -31,37 +59,10 @@ public class CategoryDao {
 			}
 			return false;
 		} finally {
-			DBUtils.close(null, pstat, conn);
+			DataSourceUtil.close(null, pstat, null);
 		}
 	}
-	/**
-	 * 判断是否可以删除
-	 * @param categoryId
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean canDelete(int categoryId) throws SQLException {
-		Connection conn=null;
-		PreparedStatement pstat=null;
-		ResultSet rs=null;
-		int count=0;
-		
-		try {
-			conn=DBUtils.getConnection();
-			pstat=conn.prepareStatement("select count(*) from product where categoryId=? ");
-			pstat.setInt(1, categoryId);
-			rs=pstat.executeQuery();
-			if(rs.next()) {
-				count=rs.getInt(1);
-			}
-			if(count==0) {
-				return true;
-			}
-			return false;
-		} finally {
-			DBUtils.close(rs, pstat, conn);
-		}
-	}
+	
 	/**
 	 * 根据每页显示条数和第几页查询,包含模糊查询
 	 * @param num	每页显示条数
@@ -73,7 +74,6 @@ public class CategoryDao {
 	 */
 	public ArrayList<Category> getCategories(int num,int page,String categoryId,String name) throws SQLException{
 		ArrayList<Category> categories=new ArrayList<Category>();
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		ResultSet rs=null;
 		
@@ -100,7 +100,7 @@ public class CategoryDao {
 			}
 			return categories;
 		} finally {
-			DBUtils.close(rs, pstat, conn);
+			DataSourceUtil.close(rs, pstat, null);
 		}
 	}
 	/**
@@ -112,7 +112,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public int getTotalPage(int num,String categoryId,String name) throws SQLException{
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		ResultSet rs=null;
 		int totalPage=1;
@@ -138,7 +137,7 @@ public class CategoryDao {
 			}
 			return totalPage;
 		} finally {
-			DBUtils.close(rs, pstat, conn);
+			DataSourceUtil.close(rs, pstat, null);
 		}
 	}
 	/**
@@ -148,7 +147,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public boolean insertCategory(String name,String remark) throws SQLException {
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		
 		try {
@@ -161,7 +159,7 @@ public class CategoryDao {
 			}
 			return false;
 		} finally {
-			DBUtils.close(null, pstat, conn);
+			DataSourceUtil.close(null, pstat, null);
 		}
 	}
 	/**
@@ -171,7 +169,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public boolean checkName(String addName) throws SQLException {
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		ResultSet rs=null;
 		
@@ -186,7 +183,7 @@ public class CategoryDao {
 				return true;
 			}
 		} finally {
-			DBUtils.close(rs, pstat, conn);
+			DataSourceUtil.close(rs, pstat, null);
 		}
 	}
 	/**
@@ -197,7 +194,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public boolean checkUpdateName(int categoryId,String addName) throws SQLException {
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		ResultSet rs=null;
 		
@@ -213,7 +209,7 @@ public class CategoryDao {
 				return true;
 			}
 		} finally {
-			DBUtils.close(rs, pstat, conn);
+			DataSourceUtil.close(rs, pstat, null);
 		}
 	}
 	/**
@@ -225,7 +221,6 @@ public class CategoryDao {
 	 * @throws SQLException
 	 */
 	public boolean update(int categoryId,String name,String remark) throws SQLException {
-		Connection conn=null;
 		PreparedStatement pstat=null;
 		
 		try {
@@ -239,7 +234,7 @@ public class CategoryDao {
 			}
 			return false;
 		} finally {
-			DBUtils.close(null, pstat, conn);
+			DataSourceUtil.close(null, pstat, null);
 		}
 	}
 }

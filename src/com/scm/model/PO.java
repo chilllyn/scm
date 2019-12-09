@@ -3,6 +3,10 @@ package com.scm.model;
 import java.io.Serializable;
 
 public class PO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//采购单编号  long
 	private long poid;
 	//供应商名称  String

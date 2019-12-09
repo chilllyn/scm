@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.scm.model.Category;
 import com.scm.model.PO;
 import com.scm.service.StockinService;
-
 /**
  * Servlet implementation class StockinServlet
  */

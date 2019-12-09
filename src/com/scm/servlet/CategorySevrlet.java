@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.scm.dao.CategoryDao;
-import com.scm.model.Category;
 import com.scm.service.CategoryService;
-
 /**
  * Servlet implementation class CategorySevrlet
  */
