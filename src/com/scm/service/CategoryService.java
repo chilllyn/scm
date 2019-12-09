@@ -1,10 +1,13 @@
 package com.scm.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.scm.dao.CategoryDao;
+import com.scm.dao.ProductDao;
 import com.scm.model.Category;
+import com.scm.util.DataSourceUtil;
 
 public class CategoryService {
 	//每页显示条数
@@ -35,31 +38,38 @@ public class CategoryService {
 	 * @throws NumberFormatException 
 	 */
 	public ArrayList<Object> delete(String categoryId,String nowPage,String searchId,String searchName) throws NumberFormatException, SQLException {
-		ArrayList<Object> result=new ArrayList<Object>();
-		int status=0;
-		int totalPage=0;
-		ArrayList<Category> getCategories=new ArrayList<Category>();
-		CategoryDao cd=new CategoryDao();
-		if(cd.canDelete(Integer.parseInt(categoryId))) {
-			if(cd.delete(Integer.parseInt(categoryId))) {
-				totalPage=getTotalPage(num, searchId, searchName);
-				if(totalPage>=Integer.parseInt(nowPage)) {
-					getCategories=getCategories(num, nowPage, searchId, searchName);
-					status=2;
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			ArrayList<Object> result=new ArrayList<Object>();
+			int status=0;
+			int totalPage=0;
+			ArrayList<Category> getCategories=new ArrayList<Category>();
+			CategoryDao cd=new CategoryDao();
+			ProductDao pd=new ProductDao(conn);
+			if(pd.canDelete(Integer.parseInt(categoryId))) {
+				if(cd.delete(Integer.parseInt(categoryId))) {
+					totalPage=getTotalPage(num, searchId, searchName);
+					if(totalPage>=Integer.parseInt(nowPage)) {
+						getCategories=getCategories(num, nowPage, searchId, searchName);
+						status=2;
+					}else {
+						getCategories=getCategories(num, totalPage+"", searchId, searchName);
+						status=3;
+					}
 				}else {
-					getCategories=getCategories(num, totalPage+"", searchId, searchName);
-					status=3;
+					status=1;
 				}
 			}else {
-				status=1;
+				status=0;
 			}
-		}else {
-			status=0;
+			result.add(getCategories);
+			result.add(totalPage);
+			result.add(status);
+			return result;
+		} finally {
+			DataSourceUtil.close(null, null, conn);
 		}
-		result.add(getCategories);
-		result.add(totalPage);
-		result.add(status);
-		return result;
+		
 	}
 	/**
 	 * 分页跳转
@@ -106,15 +116,20 @@ public class CategoryService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Category> getCategories(int num,String page,String categoryId,String name) throws SQLException{
-		ArrayList<Category> categories=new ArrayList<Category>();
-		if(page==null||("").equals(page)) {
-			//查询首页
-			categories=new CategoryDao().getCategories(num, 1,"","");
-		}else {
-			//查询指定页数
-			categories=new CategoryDao().getCategories(num, Integer.parseInt(page),categoryId,name);
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			ArrayList<Category> categories=new ArrayList<Category>();
+			if(page==null||("").equals(page)) {
+				//查询首页
+				categories=new CategoryDao(conn).getCategories(num, 1,"","");
+			}else {
+				//查询指定页数
+				categories=new CategoryDao(conn).getCategories(num, Integer.parseInt(page),categoryId,name);
+			}
+			return categories;
+		} finally {
+			DataSourceUtil.close(null, null, conn);
 		}
-		return categories;
 	}
 	/**
 	 * 获取总页数
@@ -125,7 +140,12 @@ public class CategoryService {
 	 * @throws SQLException
 	 */
 	public int getTotalPage(int num,String categoryId,String name) throws SQLException {
-		return new CategoryDao().getTotalPage(num, categoryId, name);
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			return new CategoryDao(conn).getTotalPage(num, categoryId, name);
+		} finally {
+			DataSourceUtil.close(null, null, conn);
+		}
 	}
 	/**
 	 * 获取当前页数
@@ -150,27 +170,32 @@ public class CategoryService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> add(String name,String remark) throws SQLException {
-		ArrayList<Object> result=new ArrayList<Object>();
-		ArrayList<Category> getCategories=new ArrayList<Category>();
-		int totalPage=1;
-		int num=2;
-		int status=0;
-		CategoryDao cd=new CategoryDao();
-		if(cd.checkName(name)) {
-			if(cd.insertCategory(name, remark)) {
-				totalPage=getTotalPage(num, "", "");
-				getCategories=getCategories(num, totalPage+"", "", "");
-				status=2;
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			ArrayList<Object> result=new ArrayList<Object>();
+			ArrayList<Category> getCategories=new ArrayList<Category>();
+			int totalPage=1;
+			int num=2;
+			int status=0;
+			CategoryDao cd=new CategoryDao(conn);
+			if(cd.checkName(name)) {
+				if(cd.insertCategory(name, remark)) {
+					totalPage=getTotalPage(num, "", "");
+					getCategories=getCategories(num, totalPage+"", "", "");
+					status=2;
+				}else {
+					status=1;
+				}
 			}else {
-				status=1;
+				status=0;
 			}
-		}else {
-			status=0;
+			result.add(getCategories);
+			result.add(totalPage);
+			result.add(status);
+			return result;
+		} finally {
+			DataSourceUtil.close(null, null, conn);
 		}
-		result.add(getCategories);
-		result.add(totalPage);
-		result.add(status);
-		return result;
 	}
 	/**
 	 * 修改
@@ -180,24 +205,29 @@ public class CategoryService {
 	 * @throws SQLException
 	 */
 	public ArrayList<Object> update(String categoryId,String name,String addCategoryId,String addName,String remark,String nowPage) throws SQLException {
-		ArrayList<Object> result=new ArrayList<Object>();
-		ArrayList<Category> getCategories=new ArrayList<Category>();
-		int num=2;
-		int status=0;
-		CategoryDao cd=new CategoryDao();
-		if(cd.checkUpdateName(Integer.parseInt(addCategoryId), addName)) {
-			if(cd.update(Integer.parseInt(addCategoryId), addName, remark)) {
-				getCategories=getCategories(num, nowPage, categoryId, name);
-				status=2;
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			ArrayList<Object> result=new ArrayList<Object>();
+			ArrayList<Category> getCategories=new ArrayList<Category>();
+			int num=2;
+			int status=0;
+			CategoryDao cd=new CategoryDao(conn);
+			if(cd.checkUpdateName(Integer.parseInt(addCategoryId), addName)) {
+				if(cd.update(Integer.parseInt(addCategoryId), addName, remark)) {
+					getCategories=getCategories(num, nowPage, categoryId, name);
+					status=2;
+				}else {
+					status=1;
+				}
 			}else {
-				status=1;
+				status=0;
 			}
-		}else {
-			status=0;
+			result.add(getCategories);
+			result.add(status);
+			return result;
+		} finally {
+			DataSourceUtil.close(null, null, conn);
 		}
-		result.add(getCategories);
-		result.add(status);
-		return result;
 	}
 	
 	
@@ -208,6 +238,11 @@ public class CategoryService {
 	 * @throws SQLException
 	 */
 	public boolean checkName(String addName) throws SQLException {
-		return new CategoryDao().checkName(addName);
+		Connection conn=DataSourceUtil.getConnection();
+		try {
+			return new CategoryDao(conn).checkName(addName);
+		} finally {
+			DataSourceUtil.close(null, null, conn);
+		}
 	}
 }

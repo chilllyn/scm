@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.scm.dao.StockChangeDao;
-import com.scm.dao.StockinDao;
-import com.scm.model.PO;
+import com.scm.dao.StockRecordDao;
 import com.scm.model.StockRecord;
-import com.scm.util.DBUtils;
 import com.scm.util.DataSourceUtil;
 
 public class StockChangeService {
@@ -26,14 +23,14 @@ public class StockChangeService {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
 			int totalPage=1;
-			StockChangeDao scd=new StockChangeDao(conn);
-			srs=scd.getSrs(1, num, productCode, stockStatus);
-			totalPage=scd.getTotalPage(num, productCode, stockStatus);
+			StockRecordDao srd=new StockRecordDao(conn);
+			srs=srd.getSrs(1, num, productCode, stockStatus);
+			totalPage=srd.getTotalPage(num, productCode, stockStatus);
 			result.add(srs);
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -49,12 +46,12 @@ public class StockChangeService {
 		try {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
-			StockChangeDao scd=new StockChangeDao(conn);
-			srs=scd.getSrs(toPage, num, productCode, stockStatus);
+			StockRecordDao srd=new StockRecordDao(conn);
+			srs=srd.getSrs(toPage, num, productCode, stockStatus);
 			result.add(srs);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 	/**
@@ -68,16 +65,16 @@ public class StockChangeService {
 			ArrayList<Object> result=new ArrayList<Object>();
 			ArrayList<StockRecord> srs=new ArrayList<StockRecord>();
 			int totalPage=1;
-			StockChangeDao scd=new StockChangeDao(conn);
+			StockRecordDao srd=new StockRecordDao(conn);
 			//查询第一页
-			srs=scd.getSrs(1, num, productCode, 2);
+			srs=srd.getSrs(1, num, productCode, 2);
 			//查询总页数
-			totalPage=scd.getTotalPage(num, productCode, 2);
+			totalPage=srd.getTotalPage(num, productCode, 2);
 			result.add(srs);
 			result.add(totalPage);
 			return result;
 		} finally {
-			DBUtils.close(null, null, conn);
+			DataSourceUtil.close(null, null, conn);
 		}
 	}
 }

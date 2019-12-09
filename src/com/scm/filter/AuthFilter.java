@@ -1,6 +1,7 @@
 package com.scm.filter;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,7 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.scm.model.User;
 import com.scm.service.AuthService;
@@ -19,7 +19,6 @@ import com.scm.service.AuthService;
  */
 @WebFilter("/AuthFilter")
 public class AuthFilter implements Filter {
-
     /**
      * Default constructor. 
      */
@@ -39,7 +38,6 @@ public class AuthFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req=(HttpServletRequest) request;
-		HttpServletResponse resp=(HttpServletResponse) response;
 		String path=req.getServletPath();
 		User user=(User) req.getSession().getAttribute("user");
 		boolean flag=new AuthService().authCheck(path, user.getModelUri());

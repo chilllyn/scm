@@ -36,13 +36,13 @@ private static DataSource dataSource;
 	 * @param st
 	 * @param rs
 	 */
-	public static void close(Connection conn,Statement st, ResultSet rs) {
+	public static void close(ResultSet rs,Statement pstat,Connection conn) {
 		try {
 			if(rs != null) {
 				rs.close();
 			}
-			if(st != null) {
-				st.close();
+			if(pstat != null) {
+				pstat.close();
 			}
 			if(conn != null) {
 				conn.close(); // 把连接对象归还给连接池

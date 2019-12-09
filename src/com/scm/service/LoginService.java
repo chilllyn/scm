@@ -3,7 +3,7 @@ package com.scm.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.scm.dao.UserDao;
+import com.scm.dao.ScmUserDao;
 import com.scm.model.User;
 
 public class LoginService {
@@ -15,7 +15,7 @@ public class LoginService {
 	 * @throws SQLException
 	 */
 	public User getUser(String account,String password) throws SQLException{
-		UserDao ud=new UserDao();
+		ScmUserDao ud=new ScmUserDao();
 		User su=ud.getUser(account, password);
 		ArrayList<String> modelUri=ud.getModelUri(account, password);
 		if(su==null) {

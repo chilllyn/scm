@@ -3,6 +3,10 @@ package com.scm.model;
 import java.io.Serializable;
 
 public class SO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//销售单编号  long
 	private long soid;
 	//客户名称  String

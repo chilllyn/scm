@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
-import com.scm.model.Category;
 import com.scm.service.CategoryService;
-
 /**
  * Servlet implementation class CategoryToServlet
  */

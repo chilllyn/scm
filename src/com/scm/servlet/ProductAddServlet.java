@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
-import com.scm.model.Product;
 import com.scm.service.ProductService;
-
 /**
  * Servlet implementation class ProductAddServlet
  */

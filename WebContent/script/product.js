@@ -238,7 +238,7 @@ $(function(){
 								$("#page").append($option);
 							}
 							$("#totalPage").text(totalPage);
-							$("#nowPage").text(totalPage);
+							$("#nowPage").text(1);
 							alert("新增成功");
 							init();
 						}
@@ -361,6 +361,7 @@ $(function(){
 			async:true,
 			success:function(results){
 				$(".ptr").remove();
+				$(".page").remove();
 				var products=results[0];
 				for(var i=0;i<products.length;i++){
 					$td1=$('<td align="center"><input type="checkbox" class="subch"></td>');
@@ -394,7 +395,18 @@ $(function(){
 					$tr.append($td10);
 					$("#products").append($tr);
 				}
-				$("#nowPage").text(toPage);
+				var totalPage=results[1];
+				for(var i=1;i<=parseInt(totalPage);i++){
+					$option=$("<option class='page'></option>");
+					$option.append(i);
+					$("#page").append($option);
+				}
+				$("#totalPage").text(totalPage);
+				if(toPage>totalPage){
+					$("#nowPage").text(totalPage);
+				}else{
+					$("#nowPage").text(toPage);
+				}
 				$("#allch").prop("checked",false);
 			}
 		})

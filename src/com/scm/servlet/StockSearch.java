@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.scm.model.Category;
 import com.scm.model.Product;
 import com.scm.service.StockSearchService;
-
 /**
  * Servlet implementation class StockSearch
  */
