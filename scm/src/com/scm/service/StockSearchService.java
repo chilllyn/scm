@@ -53,7 +53,6 @@ public class StockSearchService {
 		} finally {
 			DataSourceUtil.close(null, null, conn);
 		}
-		
 	}
 	/**
 	 * 分页跳转
